@@ -8,8 +8,21 @@ console.log("Hello World!")
 
 let randomChoice = (num=2) => Math.round(Math.random() * num);
 
-console.log(randomChoice());
+var choice;
 
+function getComputerChoice() {
+    switch(randomChoice()) {
+        case 0:
+            choice = "rock";
+            break;
+        case 1:
+            choice = "paper";
+            break;
+        case 2:
+            choice = "scissors";
+            break;
+    }
+};
 
-function getComputerChoice() {};
-
+getComputerChoice();
+console.log(choice);
