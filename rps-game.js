@@ -38,6 +38,7 @@ function getHumanChoice() {
 var humanScore = 0;
 var computerScore = 0;
 
+
 // Functions to create win/loss message for a round
 let winMessage = (humChoice,compChoice) => {
     console.log(`You win! ${humChoice} beats ${compChoice}`);
@@ -48,8 +49,6 @@ let lossMessage = (humChoice,compChoice) => {
 
 
 // Logic to play a single round
-// use if, elif and else within a function
-// finish function with a win/loss/tie message 
 
 function playRound(humanChoice,computerChoice) {
     if (humanChoice == computerChoice) {
