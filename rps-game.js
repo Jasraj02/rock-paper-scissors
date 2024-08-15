@@ -1,13 +1,14 @@
 
-console.log("Hello World!")
+
+
+
+
+// create a function that returns random ints (0,1,2)
+let randomChoice = (num=2) => Math.round(Math.random() * num);
+
 
 // Computer Choice
 // function will return rock, paper or scissorts
-// create a function that returns random ints (0,1,2)
-
-
-let randomChoice = (num=2) => Math.round(Math.random() * num);
-
 
 function getComputerChoice() {
     var comChoice;
@@ -27,8 +28,7 @@ function getComputerChoice() {
 
 
 // Human Choice 
-// use prompt method 
-// take string input 
+// takes string input 
 
 function getHumanChoice() {
     var humChoice = prompt("Type Rock, Paper or Scissors: ")
@@ -56,30 +56,51 @@ let lossMessage = (humChoice,compChoice) => {
 
 function playRound(humanChoice,computerChoice) {
     if (humanChoice == computerChoice) {
-        console.log(`You both chose ${humanChoice}! This round is a tie.`)
+        console.log(`You both chose ${humanChoice}! This round is a tie.`);
+        humanScore++;
+        computerScore++;
     }
 
     else if (humanChoice == "rock" && computerChoice == "scissors") {
         winMessage(humanChoice,computerChoice);
+        humanScore++;
     }
 
     else if (humanChoice == "paper" && computerChoice == "rock") {
         winMessage(humanChoice,computerChoice);
+        humanScore++;
     }
 
     else if (humanChoice == "scissors" && computerChoice == "paper") {
         winMessage(humanChoice,computerChoice);
+        humanScore++;
     }
 
     else {
         lossMessage(humanChoice,computerChoice);
+        computerScore++;
     }
 
 };
 
 
-const computerChoice = getComputerChoice();
-console.log(computerChoice); // remove this line once finished
-const humanChoice = getHumanChoice();
 
-playRound(humanChoice,computerChoice);
+// Function that runs the game as a whole for 5 rounds
+function playGame() {
+    for(i=0;i<5;i++) {
+        const computerChoice = getComputerChoice();
+        const humanChoice = getHumanChoice();
+        playRound(humanChoice,computerChoice);
+    };
+    if (humanScore > computerScore) {
+        console.log(`Congratulations you beat the computer by winning ${humanScore} rounds!`)
+    }
+    else if (humanScore == computerScore) {
+        console.log(`You and the computer both tied with ${humanScore} points`)
+    }
+    else {
+    console.log(`The computer beat you with ${computerScore} points`)
+    }
+    };
+
+playGame()
