@@ -139,7 +139,7 @@ optionButtons.forEach(
     (button) => {
     button.addEventListener("click", () => {
         playRound(button.id);
-        if (roundNumber === numberOfRounds) {
+        if (roundNumber === numberOfRounds+1) {
             finalMessage();
         };
     })
