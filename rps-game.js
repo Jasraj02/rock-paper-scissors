@@ -114,7 +114,6 @@ function playRound(humanChoice) {
 
 
 // create win/lose message 
-
 function finalMessage () {
 
     const container = document.querySelector(".rounds-container");
@@ -134,27 +133,15 @@ function finalMessage () {
     container.appendChild(completeMessage)
 } 
 
-// Function that runs the game as a whole for 5 rounds
-function playGame() {
-    for(i=0;i<=5;i++) {
-        const humanChoice = getHumanChoice();
-        playRound(humanChoice);
-    };
-    
-    };
-
-
-    // create JS code to alter the DOM and run the game
-
-    const optionButtons = document.querySelector(".button-container").childNodes ;
-    
-    optionButtons.forEach(
-        (button) => {
-        button.addEventListener("click", () => {
-            playRound(button.id)
-        })
-    }
-    )
-
-    
-        
+// alter the DOM and run the game
+const optionButtons = document.querySelector(".button-container").childNodes ;
+optionButtons.forEach(
+    (button) => {
+    button.addEventListener("click", () => {
+        playRound(button.id);
+        if (roundNumber === numberOfRounds) {
+            finalMessage();
+        };
+    })
+}
+)
