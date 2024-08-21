@@ -3,6 +3,10 @@
 // number of rounds
 const numberOfRounds = 5;
 
+// round number tracker
+var roundNumber = 1;
+
+
 // create a function that returns random ints (0,1,2)
 let randomChoice = (num=2) => Math.round(Math.random() * num);
 
@@ -42,13 +46,33 @@ var humanScore = 0;
 var computerScore = 0;
 
 
-// Functions to create win/loss message for a round
+// Functions to create win/loss/tie message for a round
 let winMessage = (humChoice,compChoice) => {
-    console.log(`You win! ${humChoice} beats ${compChoice}`);
+    const text = `You win! ${humChoice} beats ${compChoice}`;
+    sendToDOM(text);
+
 };
 let lossMessage = (humChoice,compChoice) => {
-    console.log(`You lose! ${compChoice} beats ${humChoice}`);
+    const text = `You lose! ${compChoice} beats ${humChoice}`;
+    sendToDOM(text);
+
 };
+let tieMessage = (humChoice) => {
+    const text = `You both chose ${humChoice}! This round is a tie.`;
+    sendToDOM(text);
+}
+
+function sendToDOM (elementText) {
+    const newMessage = document.createElement("div");
+    newMessage.classList.add("message");
+
+    newMessage.textContent = `ROUND ${roundNumber} - ` + elementText;
+    const parentContainer = document.querySelector(".rounds-container");
+    parentContainer.appendChild(newMessage);
+
+
+};
+
 
 
 // Logic to play a single round
@@ -58,29 +82,34 @@ function playRound(humanChoice) {
     const computerChoice = getComputerChoice();
 
     if (humanChoice == computerChoice) {
-        console.log(`You both chose ${humanChoice}! This round is a tie.`);
+        tieMessage(humanChoice)
         humanScore++;
         computerScore++;
+        roundNumber++;
     }
 
     else if (humanChoice == "rock" && computerChoice == "scissors") {
         winMessage(humanChoice,computerChoice);
         humanScore++;
+        roundNumber++;
     }
 
     else if (humanChoice == "paper" && computerChoice == "rock") {
         winMessage(humanChoice,computerChoice);
         humanScore++;
+        roundNumber++;
     }
 
     else if (humanChoice == "scissors" && computerChoice == "paper") {
         winMessage(humanChoice,computerChoice);
         humanScore++;
+        roundNumber++;
     }
 
     else {
         lossMessage(humanChoice,computerChoice);
         computerScore++;
+        roundNumber++;
     }
 
 };
@@ -108,8 +137,6 @@ function playGame() {
 
     const optionButtons = document.querySelector(".button-container").childNodes ;
     
-    console.log(optionButtons);
-
     optionButtons.forEach(
         (button) => {
         button.addEventListener("click", () => {
