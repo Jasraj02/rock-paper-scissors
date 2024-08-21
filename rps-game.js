@@ -30,17 +30,6 @@ function getComputerChoice() {
     return comChoice;
 };
 
-
-// Human Choice 
-// takes string input 
-
-function getHumanChoice() {
-    var humChoice = prompt("Type Rock, Paper or Scissors: ")
-    humChoice = humChoice.toLowerCase()
-    return humChoice;
-};
-
-
 // Variables that keep track of Human and Computer scores
 var humanScore = 0;
 var computerScore = 0;
@@ -70,9 +59,15 @@ function sendToDOM (elementText) {
     const parentContainer = document.querySelector(".rounds-container");
     parentContainer.appendChild(newMessage);
 
-
 };
 
+function runningScore () {
+    const resultSection = document.querySelector(".results-container")
+
+    const newScoreboard = `Your Score = ${humanScore}` + "      " + `Computer Score = ${computerScore} `
+
+    resultSection.textContent = newScoreboard
+}
 
 
 // Logic to play a single round
@@ -83,53 +78,69 @@ function playRound(humanChoice) {
 
     if (humanChoice == computerChoice) {
         tieMessage(humanChoice)
-        humanScore++;
-        computerScore++;
         roundNumber++;
+        runningScore()
     }
 
     else if (humanChoice == "rock" && computerChoice == "scissors") {
         winMessage(humanChoice,computerChoice);
         humanScore++;
         roundNumber++;
+        runningScore()
     }
 
     else if (humanChoice == "paper" && computerChoice == "rock") {
         winMessage(humanChoice,computerChoice);
         humanScore++;
         roundNumber++;
+        runningScore()
     }
 
     else if (humanChoice == "scissors" && computerChoice == "paper") {
         winMessage(humanChoice,computerChoice);
         humanScore++;
         roundNumber++;
+        runningScore()
     }
 
     else {
         lossMessage(humanChoice,computerChoice);
         computerScore++;
         roundNumber++;
+        runningScore()
     }
 
 };
 
 
+// create win/lose message 
+
+function finalMessage () {
+
+    const container = document.querySelector(".rounds-container");
+    const completeMessage = document.createElement("div");
+
+    if (humanScore > computerScore) {
+        var text = `Congratulations you beat the computer by winning ${humanScore} rounds!`
+    }
+    else if (humanScore == computerScore) {
+        var text = `You and the computer both tied with ${humanScore} points`
+    }
+    else {
+        var text =`The computer beat you with ${computerScore} points`
+    }
+
+    completeMessage.textContent = text;
+    container.appendChild(completeMessage)
+} 
+
 // Function that runs the game as a whole for 5 rounds
 function playGame() {
-    for(i=0;;i++) {
+    for(i=0;i<=5;i++) {
         const humanChoice = getHumanChoice();
         playRound(humanChoice);
     };
-    if (humanScore > computerScore) {
-        console.log(`Congratulations you beat the computer by winning ${humanScore} rounds!`)
-    }
-    else if (humanScore == computerScore) {
-        console.log(`You and the computer both tied with ${humanScore} points`)
-    }
-    else {
-    console.log(`The computer beat you with ${computerScore} points`)
-    }
+    
     };
 
 
@@ -144,4 +155,6 @@ function playGame() {
         })
     }
     )
+
+    
         
