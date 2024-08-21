@@ -1,5 +1,8 @@
 
 
+// number of rounds
+const numberOfRounds = 5;
+
 // create a function that returns random ints (0,1,2)
 let randomChoice = (num=2) => Math.round(Math.random() * num);
 
@@ -50,7 +53,10 @@ let lossMessage = (humChoice,compChoice) => {
 
 // Logic to play a single round
 
-function playRound(humanChoice,computerChoice) {
+function playRound(humanChoice) {
+
+    const computerChoice = getComputerChoice();
+
     if (humanChoice == computerChoice) {
         console.log(`You both chose ${humanChoice}! This round is a tie.`);
         humanScore++;
@@ -80,13 +86,11 @@ function playRound(humanChoice,computerChoice) {
 };
 
 
-
 // Function that runs the game as a whole for 5 rounds
 function playGame() {
-    for(i=0;i<5;i++) {
-        const computerChoice = getComputerChoice();
+    for(i=0;;i++) {
         const humanChoice = getHumanChoice();
-        playRound(humanChoice,computerChoice);
+        playRound(humanChoice);
     };
     if (humanScore > computerScore) {
         console.log(`Congratulations you beat the computer by winning ${humanScore} rounds!`)
@@ -99,4 +103,18 @@ function playGame() {
     }
     };
 
-playGame()
+
+    // create JS code to alter the DOM and run the game
+
+    const optionButtons = document.querySelector(".button-container").childNodes ;
+    
+    console.log(optionButtons);
+
+    optionButtons.forEach(
+        (button) => {
+        button.addEventListener("click", () => {
+            playRound(button.id)
+        })
+    }
+    )
+        
