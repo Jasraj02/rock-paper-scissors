@@ -57,7 +57,11 @@ function sendToDOM (elementText) {
 
     newMessage.textContent = `ROUND ${roundNumber} - ` + elementText;
     const parentContainer = document.querySelector(".rounds-container");
-    parentContainer.appendChild(newMessage);
+    if (roundNumber > 5) {
+        alert("All rounds have been played.\nPlease reset the game")
+    }
+    else {parentContainer.appendChild(newMessage);}
+    
 
 };
 
@@ -110,6 +114,7 @@ function playRound(humanChoice) {
         runningScore()
     }
 
+
 };
 
 
@@ -131,17 +136,60 @@ function finalMessage () {
 
     completeMessage.textContent = text;
     container.appendChild(completeMessage)
+
 } 
 
 // alter the DOM and run the game
 const optionButtons = document.querySelector(".button-container").childNodes ;
+
 optionButtons.forEach(
     (button) => {
     button.addEventListener("click", () => {
         playRound(button.id);
         if (roundNumber === numberOfRounds+1) {
             finalMessage();
+            showResetButton();
         };
     })
 }
 )
+
+// this function will create the reset button and make it clickable
+function showResetButton() {
+    const resetButton = document.createElement("button")
+    resetButton.id = "reset-button"
+    resetButton.textContent = "Reset"
+
+    const buttonContainer = document.querySelector(".button-container")
+    buttonContainer.appendChild(resetButton)
+
+    resetButton.addEventListener("click", () => {
+        resetGame()
+    })
+
+}
+
+
+function resetGame() {
+    const roundContainer = document.querySelector(".rounds-container")
+    const resultsContainer = document.querySelector(".results-container")
+
+    clearChildrenElements(roundContainer)
+    clearChildrenElements(resultsContainer)
+
+    roundNumber = 1
+    
+    const reset = document.querySelector("#reset-button")
+    reset.remove()
+}
+
+
+function clearChildrenElements(element) {
+    Array.from(element.childNodes).forEach(
+        (childElement) => {
+            element.removeChild(childElement)
+        }
+    )
+}
+
+
